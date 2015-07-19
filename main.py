@@ -1,5 +1,4 @@
 import sys
-import getopt
 import csv
 
 
@@ -9,7 +8,7 @@ def start_import():
         rows = [row for row in reader if row]
         header = rows[0]
 
-        for row in rows[1:2]: #The number two only for testing. Without it would iterate over all persons
+        for row in rows[1:3]: #The number two only for testing. Without it would iterate over all persons
             person = {}
             for i in range(len(header)):
                 person[header[i]] = row[i]
@@ -37,7 +36,6 @@ def getHeartrate(trainingunit,personId):
     with open('data/' + personId + '/' + trainingunit['TU'] + '.csv', 'rU') as f:
         reader = csv.reader(f)
         rows = [row for row in reader if row]
-        header = rows[0]
         heartrates = []
         for row in rows [1:]: #The number two only for testing. Without it would iterate over all persons
             heartrate = {}
