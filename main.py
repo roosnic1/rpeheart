@@ -51,7 +51,6 @@ def getHeartrate(trainingunit,personId):
 
 
 
-
 # Main Functions
 if __name__ == "__main__":
     start_import()
