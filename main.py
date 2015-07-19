@@ -3,6 +3,7 @@ import getopt
 
 def start_import():
     print "I'm importing"
+    print "Liar"
 
 
 # Main Functions
