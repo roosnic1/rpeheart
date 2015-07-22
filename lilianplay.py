@@ -5,20 +5,25 @@ def calHRCorrected(hrs):
     return correctedHR
 
 def calcCorrectedDuration(hrs):
-    #calculate duration after correction of HR files
+    """calculate duration after correction of HR files"""
     return correctedDuration
 
-def calcHRmax(hrs):
-    #calculate HRmax per TU
-    return maxHR
+def calcHRmaxTraining(hrs):
+    """calculate HRmax per TU"""
+    return maxHRtraining
 
-def calcHRmin(hrs):
-    #calculate HRmin per TU
-    return minHR
+def calcHRminTraining(hrs):
+    """calculate HRmin per TU"""
+    return minHRtraining
 
-def calcHRaverage(hrs):
-    #calculate HR average per TU
-    return averageHR
+def calcHRaverageTraining(hrs):
+    """calculate HRaverage per TU"""
+    return averageHRtraining
+
+def calcHRratio(hrs,minHR,maxHR):
+    """calculate HRratio as ((averageHRtraining - minHR) / (maxHR - minHR));
+    minHR and maxHR values are to be taken from the init (person) file"""
+    return ratioHR
 
 def calcDurationHRzones(hrs):
     """calculate duration in minutes per HRzone:
@@ -31,14 +36,16 @@ def calcDurationHRzones(hrs):
     6 new variables will be added"""
     return durationHRzones
 
-def calcTRIMP(hrs,geschlecht,constant):
-    #
+def calcTRIMP(hrs,geschlecht,correctedDuration):
+    """calculate TRIMP with the following gender specific formula:
+    for male athletes (geschlecht = 1): correctedDuration * ratioHR * 0.64 * e^(1.92 * ratioHR)
+    for female athletes (geschlecht = 2): correctedDuration * ratioHR * 0.86 * e^(1.67* ratioHR)"""
     return TRIMP
 
-def calcEdwards(durationHRzones,zoneNr):
-    #calculate Edwards = minutes in z1 * 1 + minutes in z2 * 2 + minutes in z3 * 3 + minutes in z4 * 4 + minutes in z5 * 5
+def calcEdwards(durationHRzones,factor):
+    """calculate Edwards = minutes in z1 * 1 + minutes in z2 * 2 + minutes in z3 * 3 + minutes in z4 * 4 + minutes in z5 * 5"""
     return edwards
 
-def calcsRPE(rpe,duration):
-    #calculate sRPE = RPE value * training duration in minutes
+def calcsRPE(rpe,correctedDuration):
+    """calculate sRPE = RPE value * training duration in minutes"""
     return sRPE
