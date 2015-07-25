@@ -4,24 +4,24 @@ def calHRCorrected(hrs):
     all following calculations are based on the corrected HRvalues"""
     return correctedHR
 
-def calcCorrectedDuration(hrs):
+def calcCorrectedDuration(correctedHRs):
     """calculate duration after correction of HR files"""
     return correctedDuration
 
-def calcHRmaxTraining(hrs):
+def calcHRmaxTraining(correctedHRs):
     """calculate HRmax per TU"""
     return maxHRtraining
 
-def calcHRminTraining(hrs):
+def calcHRminTraining(correctedHRs):
     """calculate HRmin per TU"""
     return minHRtraining
 
-def calcHRaverageTraining(hrs):
+def calcHRaverageTraining(correctedHRs):
     """calculate HRaverage per TU"""
     return averageHRtraining
 
-def calcHRratio(hrs,minHR,maxHR):
-    """calculate HRratio as ((averageHRtraining - minHR) / (maxHR - minHR));
+def calcHRratio(correctedHRs,minHR,maxHR):
+    """calculate HRratio per TU as ((averageHRtraining - minHR) / (maxHR - minHR));
     minHR and maxHR values are to be taken from the init (person) file"""
     return ratioHR
 
@@ -34,18 +34,18 @@ def calcDurationHRzones(hrs):
     z4 = 80% - 90% HRmax
     z5 = 90% - 100% HRmax
     6 new variables will be added"""
-    return durationHRzones
+    return durationHRz0, durationHRz1, durationHRz2, durationHRz3, durationHRz4, durationHRz5
 
 def calcTRIMP(hrs,geschlecht,correctedDuration):
-    """calculate TRIMP with the following gender specific formula:
+    """calculate TRIMP with the following gender specific formulas:
     for male athletes (geschlecht = 1): correctedDuration * ratioHR * 0.64 * e^(1.92 * ratioHR)
     for female athletes (geschlecht = 2): correctedDuration * ratioHR * 0.86 * e^(1.67* ratioHR)"""
     return TRIMP
 
-def calcEdwards(durationHRzones,factor):
-    """calculate Edwards = minutes in z1 * 1 + minutes in z2 * 2 + minutes in z3 * 3 + minutes in z4 * 4 + minutes in z5 * 5"""
+def calcEdwards(durationHRz1,durationHRz2,durationHRz3,durationHRz4,durationHRz5,factor):
+    """calculate Edwards = durationHRz1 * 1 + durationHRz2 * 2 + durationHRz3 * 3 + durationHRz4 * 4 + durationHRz5* 5"""
     return edwards
 
 def calcsRPE(rpe,correctedDuration):
-    """calculate sRPE = RPE value * training duration in minutes"""
+    """calculate sRPE = RPE  * correctedDuration"""
     return sRPE
