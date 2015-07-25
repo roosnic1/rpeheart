@@ -21,7 +21,7 @@ def calcHRCorrected(hrs):
             hrsTimes.append(delta.total_seconds())
 
 
-    return { 'correctedDuration': (duration.total_seconds() - hypothek),'hrsNew':hrsOverHundert,'hrsTimes':hrsTimes}
+    return { 'correctedDuration': (duration.total_seconds() - hypothek),'hrsNew':hrsOverHundert,'hrsTimes':hrsTimes,'hypothek':hypothek}
     #print (duration.total_seconds() - hypothek) / 60
     #print hrsOverHundert, hypothek, duration
 
