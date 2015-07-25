@@ -1,8 +1,28 @@
+import dateutil.parser
+
 #Lilian Calc funcs
-def calHRCorrected(hrs):
-    """correction of HR in each HR (Rändertrimmung und Intervallpausen löschen),
+def calcHRCorrected(hrs):
+    """correction of HR in each HR (Raendertrimmung und Intervallpausen loeschen),
     all following calculations are based on the corrected HRvalues"""
-    return correctedHR
+
+    duration = dateutil.parser.parse(hrs[len(hrs)-1][0]) - dateutil.parser.parse(hrs[0][0])
+    hypothek = 0
+    hrsOverHundert = []
+    for idx,hr in enumerate(hrs):
+        if(int(hr[1]) < 100):
+            delta = dateutil.parser.parse(hrs[idx+1][0]) - dateutil.parser.parse(hr[0])
+            #print delta.total_seconds()
+            hypothek += delta.total_seconds()
+        else:
+            hrsOverHundert.append(hr[1])
+
+    return { 'correctedDuration': (duration.total_seconds() - hypothek),'hrs':hrsOverHundert}
+    #print (duration.total_seconds() - hypothek) / 60
+    #print hrsOverHundert, hypothek, duration
+
+
+
+    #return correctedHR
 
 def calcCorrectedDuration(hrs):
     """calculate duration after correction of HR files"""

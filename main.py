@@ -1,19 +1,28 @@
 import sys
 import csv
 
+import lilianplay as lp
+
 
 def start_import():
     with open('data/init.csv', 'rU') as f:
         reader = csv.reader(f)
         rows = [row for row in reader if row]
         header = rows[0]
+        people = []
 
-        for row in rows[1:3]: #The number two only for testing. Without it would iterate over all persons
+        for row in rows[1:2]: #The number two only for testing. Without it would iterate over all persons
             person = {}
             for i in range(len(header)):
                 person[header[i]] = row[i]
 
-            getPersInit(person)
+            person['trainingunits'] = getPersInit(person)
+            #print person
+            #people.extend(person)
+            #print person
+
+        #print len(people)
+
 
 
 def getPersInit(person):
@@ -22,13 +31,20 @@ def getPersInit(person):
         reader = csv.reader(f)
         rows = [row for row in reader if row]
         header = rows[0]
+        trainingunits = []
 
         for row in rows [1:2]: #The number two only for testing. Without it would iterate over all persons
             trainingunit = {}
             for i in range(len(header)):
                 trainingunit[header[i]] = row[i]
 
-            getHeartrate(trainingunit,person['ID'])
+            heartrates = getHeartrate(trainingunit,person['ID'])
+
+
+            trainingunits.extend(trainingunit)
+
+        #return trainingunits
+
 
 
 def getHeartrate(trainingunit,personId):
@@ -36,15 +52,22 @@ def getHeartrate(trainingunit,personId):
     with open('data/' + personId + '/' + trainingunit['TU'] + '.csv', 'rU') as f:
         reader = csv.reader(f)
         rows = [row for row in reader if row]
-        heartrates = []
+        hrs = []
         for row in rows [1:]: #The number two only for testing. Without it would iterate over all persons
-            heartrate = {}
+            #heartrate = {}
             tup = row[0], row[1]
 
             #print tup
-            heartrates.extend(tup)
+            hrs.append(tup)
 
-        print heartrates
+        calc1 = lp.calcHRCorrected(hrs)
+
+        duration = calc1['correctedDuration']
+        hrs = calc1['hrs']
+
+        print hrs,duration
+
+        #return heartrates
 
 
 
