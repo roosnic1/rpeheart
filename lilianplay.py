@@ -1,4 +1,5 @@
 import dateutil.parser
+import math
 
 #Lilian Calc funcs
 def calcHRCorrected(hrs):
@@ -47,11 +48,16 @@ def calcDurationHRzones(hrs):
     6 new variables will be added"""
     return durationHRz0, durationHRz1, durationHRz2, durationHRz3, durationHRz4, durationHRz5
 
-def calcTRIMP(hrs,geschlecht,correctedDuration):
+def calcTRIMP(ratioHR,gender,correctedDuration):
     """calculate TRIMP with the following gender specific formulas:
     for male athletes (geschlecht = 1): correctedDuration * ratioHR * 0.64 * e^(1.92 * ratioHR)
-    for female athletes (geschlecht = 2): correctedDuration * ratioHR * 0.86 * e^(1.67* ratioHR)"""
-    return TRIMP
+    for female athletes (geschlecht = 2): correctedDuration * ratioHR * 0.86 * e^(1.67 * ratioHR)"""
+    trimp = 0
+    if int(gender) == 1:
+        trimp = (correctedDuration / 60) * ratioHR * 0.64 * math.exp(1.92 * ratioHR)
+    else:
+        trmip = (correctedDuration / 60)* ratioHR * 0.86 * math.exp(1.67 * ratioHR)
+    return trimp
 
 def calcEdwards(durationHRz1,durationHRz2,durationHRz3,durationHRz4,durationHRz5,factor):
     """calculate Edwards = durationHRz1 * 1 + durationHRz2 * 2 + durationHRz3 * 3 + durationHRz4 * 4 + durationHRz5* 5"""
@@ -59,4 +65,5 @@ def calcEdwards(durationHRz1,durationHRz2,durationHRz3,durationHRz4,durationHRz5
 
 def calcsRPE(rpe,correctedDuration):
     """calculate sRPE = RPE  * correctedDuration"""
+    sRPE = int(rpe) * (correctedDuration / 60)
     return sRPE

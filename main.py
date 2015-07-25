@@ -62,15 +62,17 @@ def getHeartrate(trainingunit,person):
 
         calc1 = lp.calcHRCorrected(hrs)
 
-        duration = calc1['correctedDuration']
+        correctedDuration = calc1['correctedDuration']
         hrsNew = calc1['hrsNew']
 
         maxHRtraining = lp.calcHRmaxTraining(hrsNew)
         minHRtraining = lp.calcHRminTraining(hrsNew)
         averageHRtraining = lp.calcHRaverageTraining(hrsNew)
 
-        print lp.calcHRratio(averageHRtraining,person['minHR'],person['maxHR'])
-        #print hrs,duration
+        ratioHR = lp.calcHRratio(averageHRtraining,person['minHR'],person['maxHR'])
+        trimp = lp.calcTRIMP(ratioHR,person['gender'],correctedDuration)
+        srpe = lp.calcsRPE(trainingunit['RPE'],correctedDuration)
+        
 
         #return heartrates
 
