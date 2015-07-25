@@ -38,7 +38,7 @@ def getPersInit(person):
             for i in range(len(header)):
                 trainingunit[header[i]] = row[i]
 
-            heartrates = getHeartrate(trainingunit,person['ID'])
+            heartrates = getHeartrate(trainingunit,person)
 
 
             trainingunits.extend(trainingunit)
@@ -47,9 +47,9 @@ def getPersInit(person):
 
 
 
-def getHeartrate(trainingunit,personId):
+def getHeartrate(trainingunit,person):
     #print trainingunit
-    with open('data/' + personId + '/' + trainingunit['TU'] + '.csv', 'rU') as f:
+    with open('data/' + person['ID'] + '/' + trainingunit['TU'] + '.csv', 'rU') as f:
         reader = csv.reader(f)
         rows = [row for row in reader if row]
         hrs = []
@@ -68,6 +68,8 @@ def getHeartrate(trainingunit,personId):
         lp.calcHRmaxTraining(hrsNew)
         lp.calcHRminTraining(hrsNew)
         lp.calcHRaverageTraining(hrsNew)
+
+        lp.calcHRratio(hrsNew,person['Ruhepuls'],person['Maximalpuls'])
         #print hrs,duration
 
         #return heartrates
