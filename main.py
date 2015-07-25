@@ -63,9 +63,12 @@ def getHeartrate(trainingunit,personId):
         calc1 = lp.calcHRCorrected(hrs)
 
         duration = calc1['correctedDuration']
-        hrs = calc1['hrs']
+        hrsNew = calc1['hrsNew']
 
-        print hrs,duration
+        lp.calcHRmaxTraining(hrsNew)
+        lp.calcHRminTraining(hrsNew)
+        lp.calcHRaverageTraining(hrsNew)
+        #print hrs,duration
 
         #return heartrates
 
