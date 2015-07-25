@@ -14,10 +14,10 @@ def start_import():
         for row in rows[1:2]: #The number two only for testing. Without it would iterate over all persons
             person = {}
             for i in range(len(header)):
-                person[header[i]] = row[i]
+                person[header[i].strip()] = row[i]
 
-            person['trainingunits'] = getPersInit(person)
             #print person
+            person['trainingunits'] = getPersInit(person)
             #people.extend(person)
             #print person
 
@@ -69,7 +69,7 @@ def getHeartrate(trainingunit,person):
         minHRtraining = lp.calcHRminTraining(hrsNew)
         averageHRtraining = lp.calcHRaverageTraining(hrsNew)
 
-        print lp.calcHRratio(averageHRtraining,person['Ruhepuls'],person['Maximalpuls'])
+        print lp.calcHRratio(averageHRtraining,person['minHR'],person['maxHR'])
         #print hrs,duration
 
         #return heartrates
