@@ -11,7 +11,6 @@ def calcHRCorrected(hrs):
     for idx,hr in enumerate(hrs):
         if(int(hr[1]) < 100):
             delta = dateutil.parser.parse(hrs[idx+1][0]) - dateutil.parser.parse(hr[0])
-            #print delta.total_seconds()
             hypothek += delta.total_seconds()
         else:
             hrsOverHundert.append(hr[1])
@@ -19,14 +18,6 @@ def calcHRCorrected(hrs):
     return { 'correctedDuration': (duration.total_seconds() - hypothek),'hrs':hrsOverHundert}
     #print (duration.total_seconds() - hypothek) / 60
     #print hrsOverHundert, hypothek, duration
-
-
-
-    #return correctedHR
-
-def calcCorrectedDuration(correctedHRs):
-    """calculate duration after correction of HR files"""
-    return correctedDuration
 
 def calcHRmaxTraining(correctedHRs):
     """calculate HRmax per TU"""
