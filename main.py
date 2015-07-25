@@ -38,8 +38,8 @@ def getPersInit(person):
             for i in range(len(header)):
                 trainingunit[header[i]] = row[i]
 
-            heartrates = getHeartrate(trainingunit,person)
-
+            lons = getHeartrate(trainingunit,person)
+            trainingunit['correctedDuration'] = lons['cd']
 
             trainingunits.extend(trainingunit)
 
@@ -76,8 +76,8 @@ def getHeartrate(trainingunit,person):
         trimp = lp.calcTRIMP(ratioHR,person['gender'],correctedDuration)
         edwards = lp.calcEdwards(zonesHR)
         srpe = lp.calcsRPE(trainingunit['RPE'],correctedDuration)
-        print zonesHR
-        print edwards
+        #print zonesHR
+        #print edwards
 
         return {'cd':correctedDuration,'maxhrt':maxHRtraining,'minhrt':minHRtraining,'avg':averageHRtraining,'zonesHR':zonesHR,'trimp':trimp,'edwards':edwards,'srpe':srpe,'hypothek':hypothek}
 
