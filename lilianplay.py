@@ -87,11 +87,10 @@ def calcTRIMP(ratioHR,gender,correctedDuration):
         trimp = (correctedDuration / 60)* ratioHR * 0.86 * math.exp(1.67 * ratioHR)
     return trimp
 
-def calcEdwards(durationHRz1,durationHRz2,durationHRz3,durationHRz4,durationHRz5,factor):
-    """calculate Edwards = durationHRz1 * 1 + durationHRz2 * 2 + durationHRz3 * 3 + durationHRz4 * 4 + durationHRz5* 5"""
-    return edwards
+def calcEdwards(zonesHR):
+    """calculate Edwards = durationHRsTimes z1 * 1 + durationHRsTimes z2 * 2 + durationHRsTimes z3 * 3 + durationHRsTimes z4 * 4 + durationHRsTimes z5* 5"""
+    return ((zonesHR['z1'] * 1) + (zonesHR['z2'] * 2) + (zonesHR['z3'] * 3) + (zonesHR['z4'] * 4) + (zonesHR['z5'] * 5)) / 60
 
 def calcsRPE(rpe,correctedDuration):
     """calculate sRPE = RPE  * correctedDuration"""
-    sRPE = int(rpe) * (correctedDuration / 60)
-    return sRPE
+    return int(rpe) * (correctedDuration / 60)
