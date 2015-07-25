@@ -1,1 +1,1 @@
-ID, Alter, gender, Groesse, Gewicht, BMI, Sportart, TE_woche, TStd_woche, Sporterfahrung, Lauferfahrung, Fitnesszustand, minHR, maxHRAnNa, 43, 1, 1.84, 85, 25.11, Laufen, 5, 8, 8, 2, 2, 45, 185SaRi, 37, 2, 1.78, 74, 23.36, Laufen, 3, 5, 5, 2, 2, 60, 185MiBo, 37, 1, 1.82, 74, 22.34, Laufen, 3, 5, 25, 2, 2, 54, 183
+ID,age, gender,height,weight, BMI,sport,trainingunits_week,hours_week,sport_exp,running_exp,fitness, minHR, maxHRAnNa,43,1,1.84,85,25.11, Laufen,5,8,8,2,2,45,185SaRi,37,2,1.78,74,23.36, Laufen,3,5,5,2,2,60,185MiBo,37,1,1.82,74,22.34, Laufen,3,5,25,2,2,54,183
