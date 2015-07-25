@@ -31,11 +31,10 @@ def calcHRaverageTraining(correctedHRs):
     """calculate HRaverage per TU"""
     return sum(correctedHRs) / len(correctedHRs)
 
-def calcHRratio(correctedHRs,minHR,maxHR):
+def calcHRratio(averageHRtraining,ruhepuls,maixmalpuls):
     """calculate HRratio per TU as ((averageHRtraining - minHR) / (maxHR - minHR));
     minHR and maxHR values are to be taken from the init (person) file"""
-    
-    #return ratioHR
+    return (averageHRtraining - ruhepuls) / (maximalpuls - ruhepuls)
 
 def calcDurationHRzones(hrs):
     """calculate duration in minutes per HRzone:
