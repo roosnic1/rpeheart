@@ -15,21 +15,22 @@ def calcHRCorrected(hrs):
         else:
             hrsOverHundert.append(hr[1])
 
-    return { 'correctedDuration': (duration.total_seconds() - hypothek),'hrs':hrsOverHundert}
+    return { 'correctedDuration': (duration.total_seconds() - hypothek),'hrsNew':hrsOverHundert}
     #print (duration.total_seconds() - hypothek) / 60
     #print hrsOverHundert, hypothek, duration
 
 def calcHRmaxTraining(correctedHRs):
     """calculate HRmax per TU"""
-    return maxHRtraining
+    return max(correctedHRs)
 
 def calcHRminTraining(correctedHRs):
     """calculate HRmin per TU"""
-    return minHRtraining
+    return min(correctedHRs)
 
 def calcHRaverageTraining(correctedHRs):
     """calculate HRaverage per TU"""
-    return averageHRtraining
+    print sum(correctedHRs) / len(correctedHRs)    
+    #return averageHRtraining
 
 def calcHRratio(correctedHRs,minHR,maxHR):
     """calculate HRratio per TU as ((averageHRtraining - minHR) / (maxHR - minHR));
