@@ -13,7 +13,7 @@ def calcHRCorrected(hrs):
             delta = dateutil.parser.parse(hrs[idx+1][0]) - dateutil.parser.parse(hr[0])
             hypothek += delta.total_seconds()
         else:
-            hrsOverHundert.append(hr[1])
+            hrsOverHundert.append(int(hr[1]))
 
     return { 'correctedDuration': (duration.total_seconds() - hypothek),'hrsNew':hrsOverHundert}
     #print (duration.total_seconds() - hypothek) / 60
@@ -29,7 +29,7 @@ def calcHRminTraining(correctedHRs):
 
 def calcHRaverageTraining(correctedHRs):
     """calculate HRaverage per TU"""
-    print sum(correctedHRs) / len(correctedHRs)    
+    print sum(correctedHRs) / len(correctedHRs)
     #return averageHRtraining
 
 def calcHRratio(correctedHRs,minHR,maxHR):
