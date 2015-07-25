@@ -34,10 +34,7 @@ def calcHRaverageTraining(correctedHRs):
 def calcHRratio(averageHRtraining,minHR,maxHR):
     """calculate HRratio per TU as ((averageHRtraining - minHR) / (maxHR - minHR));
     minHR and maxHR values are to be taken from the init (person) file"""
-    print averageHRtraining
-    print minHR
-    print maxHR
-    return (averageHRtraining - int(minHR)) / (int(maxHR) - int(minHR))
+    return (averageHRtraining - float(minHR)) / (int(maxHR) - int(minHR))
 
 def calcDurationHRzones(hrs):
     """calculate duration in minutes per HRzone:
