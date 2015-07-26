@@ -3,7 +3,7 @@ import math
 
 #Lilian Calc funcs
 def calcHRCorrected(hrs):
-    """correction of HR in each HR (Raendertrimmung und Intervallpausen loeschen),
+    """correction of HR in each HR (correction for values below 100 bpm throughout the trainingunit),
     all following calculations are based on the corrected HRvalues"""
 
     duration = dateutil.parser.parse(hrs[len(hrs)-1][0]) - dateutil.parser.parse(hrs[0][0])
@@ -20,10 +20,8 @@ def calcHRCorrected(hrs):
             hrsOverHundert.append(int(hr[1]))
             hrsTimes.append(delta.total_seconds())
 
+    return {'correctedDuration':(duration.total_seconds() - hypothek),'hrsNew':hrsOverHundert,'hrsTimes':hrsTimes,'hypothek':hypothek}
 
-    return { 'correctedDuration': (duration.total_seconds() - hypothek),'hrsNew':hrsOverHundert,'hrsTimes':hrsTimes,'hypothek':hypothek}
-    #print (duration.total_seconds() - hypothek) / 60
-    #print hrsOverHundert, hypothek, duration
 
 def calcHRmaxTraining(correctedHRs):
     """calculate HRmax per TU"""

@@ -16,7 +16,6 @@ def start_import():
             for i in range(len(header)):
                 person[header[i].strip()] = row[i].strip()
 
-            #print person
             person['trainingunits'] = getPersInit(person)
             #people.extend(person)
             #print person
@@ -40,11 +39,19 @@ def getPersInit(person):
 
             lons = getHeartrate(trainingunit,person)
             trainingunit['correctedDuration'] = lons['cd']
+            trainingunit['trimp'] = lons['trimp']
+            trainingunit['edwards'] = lons['edwards']
+            trainingunit['srpe'] = lons['srpe']
+            trainingunit['hypothek'] = lons['hypothek']
+            trainingunit['maxHRtraining'] = lons['maxHRtraining']
+            trainingunit['minHRtraining'] = lons['minHRtraining']
+            trainingunit['avgHRtraining'] = lons['avgHRtraining']
+            trainingunit['zonesHR'] = lons['zonesHR']
 
             trainingunits.extend(trainingunit)
 
         #return trainingunits
-
+        
 
 
 def getHeartrate(trainingunit,person):
@@ -57,7 +64,7 @@ def getHeartrate(trainingunit,person):
             #heartrate = {}
             tup = row[0], row[1]
 
-            #print tup
+
             hrs.append(tup)
 
         calc1 = lp.calcHRCorrected(hrs)
@@ -76,10 +83,8 @@ def getHeartrate(trainingunit,person):
         trimp = lp.calcTRIMP(ratioHR,person['gender'],correctedDuration)
         edwards = lp.calcEdwards(zonesHR)
         srpe = lp.calcsRPE(trainingunit['RPE'],correctedDuration)
-        #print zonesHR
-        #print edwards
 
-        return {'cd':correctedDuration,'maxhrt':maxHRtraining,'minhrt':minHRtraining,'avg':averageHRtraining,'zonesHR':zonesHR,'trimp':trimp,'edwards':edwards,'srpe':srpe,'hypothek':hypothek}
+        return {'cd':correctedDuration,'maxHRtraining':maxHRtraining,'minHRtraining':minHRtraining,'avgHRtraining':averageHRtraining,'zonesHR':zonesHR,'trimp':trimp,'edwards':edwards,'srpe':srpe,'hypothek':hypothek}
 
 
 
