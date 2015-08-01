@@ -12,7 +12,7 @@ def start_import():
         header = rows[0]
         people = []
 
-        for row in rows[1:2]: #The number two only for testing. Without it would iterate over all persons
+        for row in rows[1:]: #The number two only for testing. Without it would iterate over all persons
             p = {};
             person = {}
             for i in range(len(header)):
@@ -93,34 +93,37 @@ def getHeartrate(trainingunit,person):
         return {'cd':'NAN','maxHRtraining':'NAN','minHRtraining':'NAN','avgHRtraining':'NAN','zonesHR':'NAN','trimp':'NAN','edwards':'NAN','srpe':'NAN','hypothek':'NAN'}
 
     with open('data/' + person['ID'] + '/' + trainingunit['TU'] + '.csv', 'rU') as f:
-        reader = csv.reader(f)
-        rows = [row for row in reader if row]
-        hrs = []
-        for row in rows [1:]: #The number two only for testing. Without it would iterate over all persons
-            #heartrate = {}
-            tup = row[0], row[1]
+        try:
+            reader = csv.reader(f)
+            rows = [row for row in reader if row]
+            hrs = []
+            for row in rows [1:]: #The number two only for testing. Without it would iterate over all persons
+                #heartrate = {}
+                tup = row[0], row[1]
 
 
-            hrs.append(tup)
+                hrs.append(tup)
 
-        calc1 = lp.calcHRCorrected(hrs)
+            calc1 = lp.calcHRCorrected(hrs)
 
-        correctedDuration = calc1['correctedDuration'] / 60
-        hrsNew = calc1['hrsNew']
-        hrsTimes = calc1['hrsTimes']
-        hypothek = calc1['hypothek'] / 60
+            correctedDuration = calc1['correctedDuration'] / 60
+            hrsNew = calc1['hrsNew']
+            hrsTimes = calc1['hrsTimes']
+            hypothek = calc1['hypothek'] / 60
 
-        maxHRtraining = lp.calcHRmaxTraining(hrsNew)
-        minHRtraining = lp.calcHRminTraining(hrsNew)
-        averageHRtraining = lp.calcHRaverageTraining(hrsNew)
+            maxHRtraining = lp.calcHRmaxTraining(hrsNew)
+            minHRtraining = lp.calcHRminTraining(hrsNew)
+            averageHRtraining = lp.calcHRaverageTraining(hrsNew)
 
-        zonesHR = lp.calcDurationHRzones(hrsNew,hrsTimes,person['maxHR'])
-        ratioHR = lp.calcHRratio(averageHRtraining,person['minHR'],person['maxHR'])
-        trimp = lp.calcTRIMP(ratioHR,person['gender'],correctedDuration)
-        edwards = lp.calcEdwards(zonesHR)
-        srpe = lp.calcsRPE(trainingunit['RPE'],correctedDuration)
-
-        return {'cd':correctedDuration,'maxHRtraining':maxHRtraining,'minHRtraining':minHRtraining,'avgHRtraining':averageHRtraining,'zonesHR':zonesHR,'trimp':trimp,'edwards':edwards,'srpe':srpe,'hypothek':hypothek}
+            zonesHR = lp.calcDurationHRzones(hrsNew,hrsTimes,person['maxHR'])
+            ratioHR = lp.calcHRratio(averageHRtraining,person['minHR'],person['maxHR'])
+            trimp = lp.calcTRIMP(ratioHR,person['gender'],correctedDuration)
+            edwards = lp.calcEdwards(zonesHR)
+            srpe = lp.calcsRPE(trainingunit['RPE'],correctedDuration)
+            return {'cd':correctedDuration,'maxHRtraining':maxHRtraining,'minHRtraining':minHRtraining,'avgHRtraining':averageHRtraining,'zonesHR':zonesHR,'trimp':trimp,'edwards':edwards,'srpe':srpe,'hypothek':hypothek}
+        except Exception, e:
+            print 'Error in file ' + 'data/' + person['ID'] + '/' + trainingunit['TU'] + '.csv'
+            print e
 
 
 
