@@ -1,5 +1,6 @@
 import sys
 import csv
+import os.path
 
 import lilianplay as lp
 
@@ -24,8 +25,12 @@ def start_import():
                 for i in range(len(header)):
                     tu[header[i].strip()] = row[i].strip()
 
+                tu_sorted = {}
+                tu_sorted['ID'] = tu['ID']
+                tu_sorted['TU'] = tu['TU']
+
                 #print tu
-                alluntis.append(tu)
+                alluntis.append(tu_sorted)
 
             people.append(alluntis)
 
@@ -59,6 +64,23 @@ def getPersInit(person):
             trainingunit['avgHRtraining'] = lons['avgHRtraining']
             trainingunit['zonesHR'] = lons['zonesHR']
 
+            if lons['zonesHR'] == 'NAN':
+                trainingunit['zonesHR_z0'] = 'NAN'
+                trainingunit['zonesHR_z1'] = 'NAN'
+                trainingunit['zonesHR_z2'] = 'NAN'
+                trainingunit['zonesHR_z3'] = 'NAN'
+                trainingunit['zonesHR_z4'] = 'NAN'
+                trainingunit['zonesHR_z5'] = 'NAN'
+            else:
+                trainingunit['zonesHR_z0'] = lons['zonesHR']['z0'] / 60
+                trainingunit['zonesHR_z1'] = lons['zonesHR']['z1'] / 60
+                trainingunit['zonesHR_z2'] = lons['zonesHR']['z2'] / 60
+                trainingunit['zonesHR_z3'] = lons['zonesHR']['z3'] / 60
+                trainingunit['zonesHR_z4'] = lons['zonesHR']['z4'] / 60
+                trainingunit['zonesHR_z5'] = lons['zonesHR']['z5'] / 60
+
+
+
             trainingunits.append(trainingunit)
 
         return trainingunits
@@ -66,6 +88,10 @@ def getPersInit(person):
 
 def getHeartrate(trainingunit,person):
     #print trainingunit
+
+    if not os.path.isfile('data/' + person['ID'] + '/' + trainingunit['TU'] + '.csv'):
+        return {'cd':'NAN','maxHRtraining':'NAN','minHRtraining':'NAN','avgHRtraining':'NAN','zonesHR':'NAN','trimp':'NAN','edwards':'NAN','srpe':'NAN','hypothek':'NAN'}
+
     with open('data/' + person['ID'] + '/' + trainingunit['TU'] + '.csv', 'rU') as f:
         reader = csv.reader(f)
         rows = [row for row in reader if row]
@@ -79,10 +105,10 @@ def getHeartrate(trainingunit,person):
 
         calc1 = lp.calcHRCorrected(hrs)
 
-        correctedDuration = calc1['correctedDuration']
+        correctedDuration = calc1['correctedDuration'] / 60
         hrsNew = calc1['hrsNew']
         hrsTimes = calc1['hrsTimes']
-        hypothek = calc1['hypothek']
+        hypothek = calc1['hypothek'] / 60
 
         maxHRtraining = lp.calcHRmaxTraining(hrsNew)
         minHRtraining = lp.calcHRminTraining(hrsNew)
