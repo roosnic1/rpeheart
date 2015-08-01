@@ -11,7 +11,7 @@ def start_import():
         header = rows[0]
         people = []
 
-        for row in rows[1:2]: #The number two only for testing. Without it would iterate over all persons
+        for row in rows[1:]: #The number two only for testing. Without it would iterate over all persons
             p = {};
             person = {}
             for i in range(len(header)):
