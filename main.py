@@ -69,7 +69,8 @@ def start_import():
 
         print len(people[0])
         #print people[0]
-        outputToCSV(people)
+        #outputToCSV(people)
+        outputToCSVAll(people)
 
 
 
@@ -168,6 +169,16 @@ def outputToCSV(people):
             writer.writeheader()
             for tu in peop:
                 writer.writerow(tu)
+
+
+def outputToCSVAll(people):
+    with open('out/__all.csv','wb') as f:
+        writer = csv.DictWriter(f,people[0][0].keys())
+        writer.writeheader()
+        for peop in people:
+            for tu in peop:
+                writer.writerow(tu)
+
 
 
 
